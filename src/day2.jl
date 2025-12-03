@@ -1,11 +1,39 @@
 const REPEAT_RE = r"^(.+)\1+$"
 
-function isinvalid(i::Int)
-    str = string(i)
-    return length(str) % 2 == 0 && str[1:(length(str)÷2)] == str[(length(str)÷2+1):end]
+function isinvalid(n::Int)
+    d = digits(n)
+    if length(d) % 2 != 0
+        return false
+    end
+    for i in 1:(length(d)÷2)
+        if d[i] != d[i+length(d)÷2]
+            return false
+        end
+    end
+    return true
 end
 
-isinvalid2(i::Int) = occursin(REPEAT_RE, string(i))
+function isinvalid2(n::Int)
+    d = digits(n)
+    len = length(d)
+
+    for i in 1:(len÷2)
+        if len % i != 0
+            continue
+        end
+        invalid = true
+        for j in 1:(len-i)
+            if d[j] != d[j+i]
+                invalid = false
+                break
+            end
+        end
+        if invalid
+            return true
+        end
+    end
+    return false
+end
 
 function part1()
     input = open("input/day2.txt") do f
