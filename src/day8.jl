@@ -1,6 +1,5 @@
 using DataStructures
 using Graphs
-using LinearAlgebra
 using StaticArrays
 
 const NUM_CONNECTIONS = 1000
@@ -12,10 +11,10 @@ function part1()
 
     boxes = [SVector{3,Int}(parse.(Int, split(line, ','))) for line in lines]
 
-    heap = BinaryHeap{Tuple{Int,Int,Float64}}(Base.By(last))
+    heap = BinaryHeap{Tuple{Int,Int,Int}}(Base.By(last))
     for i in eachindex(boxes)
         for j in (i+1):length(boxes)
-            push!(heap, (i, j, norm(boxes[i] - boxes[j])))
+            push!(heap, (i, j, sum((boxes[i] - boxes[j]) .^ 2)))
         end
     end
 
@@ -36,10 +35,10 @@ function part2()
 
     boxes = [SVector{3,Int}(parse.(Int, split(line, ','))) for line in lines]
 
-    heap = BinaryHeap{Tuple{Int,Int,Float64}}(Base.By(last))
+    heap = BinaryHeap{Tuple{Int,Int,Int}}(Base.By(last))
     for i in eachindex(boxes)
         for j in (i+1):length(boxes)
-            push!(heap, (i, j, norm(boxes[i] - boxes[j])))
+            push!(heap, (i, j, sum((boxes[i] - boxes[j]) .^ 2)))
         end
     end
 
