@@ -25,7 +25,7 @@ function part1()
         add_edge!(graph, connection...)
     end
     components = connected_components(graph)
-    sort!(components, by=length, rev=true)
+    sort!(components, by = length, rev = true)
     return length(components[1]) * length(components[2]) * length(components[3])
 end
 
@@ -43,11 +43,11 @@ function part2()
         end
     end
 
-    graph = SimpleGraph(length(boxes))
+    dsu = IntDisjointSet(length(boxes))
     while true
         connection, _ = popfirst!(queue)
-        add_edge!(graph, connection...)
-        if length(connected_components(graph)) == 1
+        union!(dsu, connection...)
+        if num_groups(dsu) == 1
             return boxes[connection[1]][1] * boxes[connection[2]][1]
         end
     end
