@@ -74,7 +74,7 @@ function part2()
         end
     end
     sort!(rectangles, by = last, rev = true)
-    
+
     for rectangle in rectangles
         if isinbounds(boundary, redtiles[rectangle[1]], redtiles[rectangle[2]])
             return rectangle[3]
